@@ -38,14 +38,11 @@ def load_history(path, history_length=3):
 
     try:
         with open(history_file, 'rb') as f:
-            p = f.read(24)
-
-            while p:
+            while p := f.read(24):
                 cycle, person_a, person_b = struct.unpack('QQQ', p)
 
                 history_cycles[cycle].append((person_a, person_b))
 
-                p = f.read(24)
     except FileNotFoundError:
         return {}
 
