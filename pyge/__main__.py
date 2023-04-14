@@ -56,7 +56,7 @@ def main():
 
     pairs = []
 
-    while len(people_a) > 0:
+    while people_a:
         gifter = random.choice(people_a)
 
         weights = [(p, gifter.euclidean_distance(p), gifter.coefficient(p)) for p in people_b]
@@ -65,8 +65,8 @@ def main():
         for w in weights:
             weighted_list.extend([w[0]] * int(w[1] * w[2]))
 
-        if len(weighted_list) == 0:
-            if len(pairs) == 0:
+        if not weighted_list:
+            if not pairs:
                 raise Exception('Could not match set.')
 
             (prev_a, prev_b) = pairs.pop()

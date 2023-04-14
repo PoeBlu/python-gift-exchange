@@ -13,7 +13,7 @@ class Person():
         self.dob = datetime.strptime(dob, '%m/%d/%Y')
         self.sex = sex
         self.lat_lng = lookup_city(city_state)
-        self.exchange_history = exchange_history or list()
+        self.exchange_history = exchange_history or []
 
     def add_history(self, other):
         self.exchange_history.append(hash(other))
@@ -31,19 +31,16 @@ class Person():
         x_vector = self.vector()
         y_vector = other.vector()
 
-        return sum([(x - y) ** 2 for x, y in zip(x_vector, y_vector)]) ** .5
+        return sum((x - y) ** 2 for x, y in zip(x_vector, y_vector))**.5
 
     def l1_distance(self, other):
         x_vector = self.vector()
         y_vector = other.vector()
 
-        return sum([abs(x - y) for x, y in zip(x_vector, y_vector)])
+        return sum(abs(x - y) for x, y in zip(x_vector, y_vector))
 
     def coefficient(self, other):
-        if self.has_history(other):
-            return 0.
-
-        return 1000.
+        return 0. if self.has_history(other) else 1000.
 
     @property
     def age_in_days(self):
